@@ -1,0 +1,87 @@
+<html lang="en">
+
+<head>
+    <script type="text/javascript" src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>GW API Play</title>
+    <link rel="icon" type="image/x-icon" href="../docs/favicon.png">
+
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="header" id="header"><span>
+                <h1>GW API Play</h1>
+            </span>
+            <span id="tokenSpan"
+                style="font-size: small; font-weight:normal;justify-self: end;align-self: end; padding:10px"></span>
+        </div>
+
+        <div class="login" id="login">
+            <label style="align-self: center;">Customer Key</label>
+            <input type="text" id="cusKey" name="Customer Key" placeholder="Customer Key...">
+            <span>.</span>
+            <label style="align-self: center;">Customer Secret</label>
+            <input type="text" id="cusSec" name="Customer Secret" placeholder="Customer secret...">
+            <button class="button" onclick="login()">Spoj se s API</button>
+        </div>
+        <div class="menu" id="menu">
+            <div class="menu_col_1">
+                <button class="button" onclick="showStatuses()">Zobraz stavy zasilek</button>
+                <button class="button" onclick="showDocuments()">Zobraz dokumenty zasilek</button>
+                <input type="text" name="date" id="date" />
+                <button class="button" onclick="showDelivery()">Zobraz detaily zasilky</button>
+                <input type="text" name="text" id="idDelivery" placeholder="... zadejte cislo zasilky" />
+                <button class="button" onclick="logout()" style="background-color: red;">Odpoj se od API</button>
+            </div>
+            <div class="menu_col_2"></div>
+        </div>
+        <div class="obsah">
+            <div class="obsah_col_1" id="obsah_col_1">
+
+            </div>
+            <div class="obsah_col_2" id="obsah_col_2"></div>
+        </div>
+        <div class="footer" id="footer">
+            <h2>Dokumenty k napojeni na GW API</h2>
+            <ul>
+                <li><a href="https://developer.my.gw-world.com/" target="_blank">Developer portal GW</a></li>
+                </li><li><a href="../docs/GW-APITestingInstruction-TnT-V1.0.0.pdf"
+                        target="_blank">GW-APITestingInstruction-TnT-V1.0.0</a></li>
+                <li><a href="../docs/GW-OAUTH2-TokenGeneration.pdf" target="_blank">GW-OAUTH2-TokenGeneration</a>
+                
+                <li><a href="../docs/GWStatusCodesCustomer-v1.pdf" target="_blank">GWStatusCodesCustomer-v1</a></li>
+                <li><a href="../docs/TestingInstruction.pdf" target="_blank">TestingInstruction</a></li>
+                <li><a href="../docs/stavy_zasilek.xlsm" target="_blank">Stavy zasilek Excel + makro</a></li>
+            </ul>
+            <p style="text-decoration: none;">V pripade dotazu kontaktujte ceskou IT podporu GW <a href="mailto:edv75@gw-world.com">edv75@gw-world.com</a></p>
+                </div>
+    </div>
+
+    <script>
+        picker = new Litepicker({
+            element: document.getElementById('date'),
+            singleMode: false,
+            showTooltip: false,
+            format: 'YYYY-MM-DD',
+            maxDays: 14,
+            setup: (picker) => {
+                picker.on('before:show', (el) => {
+                    picker.setDateRange(datumOd, datumDo, true);
+                });
+                picker.on('selected', (date1, date2) => {
+                    datumDo = getDate(picker.getEndDate());
+                    datumOd = getDate(picker.getStartDate());
+                });
+            }
+        });
+        picker.setDateRange(datumOd, datumDo, false);
+    </script>
+
+</body>
+
+</html>
